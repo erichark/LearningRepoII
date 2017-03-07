@@ -11,7 +11,13 @@ array1 = [1,2,3,4,5,6,7,8,9,10,11]
 array2 = [12,13,14,15,16,17,18]
 
 
-<<<<<<< HEAD
+array1.extend(tuple1)
+print(array1)
+
+array1.remove("a")
+
+print(array1)
+
 array1 = [1,2,3,4,5]
 print(array1[1])
 print(array1[3])
@@ -30,14 +36,5 @@ big_list.append("Ibra")
 print(big_list)
 
 
-=======
-array1.extend(tuple1)
-print(array1)
-
-array1.remove("a")
-
-print(array1)
-
 array1.insert(11, "a")
 print (array1)
->>>>>>> refs/remotes/origin/master
