@@ -18,3 +18,16 @@ print(array1[1])
 print(array1[3])
 z=array1[1]+array1[3]
 print(z)
+
+
+print("append and pop")
+
+
+big_list = ["Mata","Rooney", "lindgard", "martial", "fellani"]
+print(big_list)
+big_list.pop(9)
+print(big_list)
+big_list.append("Ibra")
+print(big_list)
+
+
