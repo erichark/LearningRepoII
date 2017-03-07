@@ -5,14 +5,13 @@ Created on Mar 4, 2017
 '''
 
 
-print(len("this is a string"))
+tuple1 = ("a", "b", "c", "d", "e", "f", "g", "h", "i", "j")
 
-x=1
-y=2
-print(x*y*3)
+array1 = [1,2,3,4,5,6,7,8,9,10,11]
+array2 = [12,13,14,15,16,17,18]
 
-print (str(x) + "+" + str(y) + str((x+y)))
 
+<<<<<<< HEAD
 array1 = [1,2,3,4,5]
 print(array1[1])
 print(array1[3])
@@ -31,3 +30,14 @@ big_list.append("Ibra")
 print(big_list)
 
 
+=======
+array1.extend(tuple1)
+print(array1)
+
+array1.remove("a")
+
+print(array1)
+
+array1.insert(11, "a")
+print (array1)
+>>>>>>> refs/remotes/origin/master
