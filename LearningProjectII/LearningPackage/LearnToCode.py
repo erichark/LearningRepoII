@@ -3,38 +3,26 @@ Created on Mar 4, 2017
 
 @author: Eric
 '''
+from LearningPackage.Functions import FirstFunction
 
-
-tuple1 = ("a", "b", "c", "d", "e", "f", "g", "h", "i", "j")
+tuple1 = ("j","a", "b", "c", "d", "e", "f", "g", "h", "i", "j")
 
 array1 = [1,2,3,4,5,6,7,8,9,10,11]
 array2 = [12,13,14,15,16,17,18]
 
+list1=["a","b",["aa","ab","ac"]]
 
-array1.extend(tuple1)
-print(array1)
+list2=list1
 
-array1.remove("a")
+print(tuple1[2])
 
-print(array1)
+print(id(tuple1[0]), id(tuple1[-1]))
 
-array1 = [1,2,3,4,5]
-print(array1[1])
-print(array1[3])
-z=array1[1]+array1[3]
-print(z)
+print(FirstFunction[1]) 
 
 
-print("append and pop")
+#This is a Comment
 
-
-big_list = ["Mata","Rooney", "lindgard", "martial", "fellani"]
-print(big_list)
-big_list.pop(9)
-print(big_list)
-big_list.append("Ibra")
-print(big_list)
-
-
-array1.insert(11, "a")
-print (array1)
+#===============================================================================
+# Oh this is a fun comment block
+#===============================================================================
