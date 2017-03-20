@@ -14,11 +14,7 @@ list1=["a","b",["aa","ab","ac"]]
 
 list2=list1
 
-print(tuple1[2])
 
-print(id(tuple1[0]), id(tuple1[-1]))
-
-print(FirstFunction[1]) 
 
 
 #This is a Comment
@@ -26,3 +22,24 @@ print(FirstFunction[1])
 #===============================================================================
 # Oh this is a fun comment block
 #===============================================================================
+
+
+#Setting up a Dictionary 
+
+Dictionary1 = {"GK":"Aayush", "RB":"Danny", "CB":"Dyhey", "LB": "Paul"}
+Dictionary2 = {"Aayush":"Senior", "Danny":"Junior", "Dyhey":"Senior", "Paul":"Senior", "CJ":"Sophomore", }
+
+print(Dictionary1)
+print(Dictionary1["GK"])
+print(Dictionary2[Dictionary1["GK"]])
+
+Dictionary1["GK"] = "CJ"
+
+print(Dictionary1)
+print(Dictionary2[Dictionary1["GK"]])
+
+print("GK" in Dictionary1)
+print("GK" in Dictionary2)
+
+print(Dictionary1.get("ST"))
+print(Dictionary1)
