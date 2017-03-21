@@ -6,11 +6,22 @@ Created on Mar 19, 2017
 #Time to learn loops
 
 
-from math import sqrt
-n = int(input("Maximal Number? "))
-for a in range(1,n+1):
-    for b in range(a,n):
-        c_square = a**2 + b**2
-        c = int(sqrt(c_square))
-        if ((c_square - c**2) == 0):
-            print(a, b, c)
+
+#Total= float(input("what is the number you'd like?\n"))
+
+#if Total == 3:
+#    print("The answer was 3")
+#elif Total == 4:
+#    print("The answer was 4")
+#elif Total == 5:
+#    print("The answer was 5")
+#elif Total < 3:
+#    print("The answer was 2 or below")
+#else:
+#    print("That number is too high for me")
+    
+
+
+n = 10
+for counter in range(0,n,1):
+    print("The number is 10")
