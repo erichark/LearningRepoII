@@ -4,5 +4,7 @@ Created on Oct 23, 2017
 @author: Eric
 '''
 
-x=["London","Paris","Berlin","Copenhagen"]
-print ("Moscow" in x)
+list1=["a","b","c","d"]
+list2=list1[:]
+print(id(list1))
+print(id(list2))
