@@ -1,0 +1,21 @@
+Create a program that requires a login
+The main portion of the program should require the user to answer a series of questions, record the answers, and then do some sort of calculation and develop an output
+The questions and the output must be definative, with each quesiton contributing to a solution that is unique based on the answers (maybe multiple choice segmentation a la patient segmentation questions?)
+The program should be broken up into functions in separate files.
+Login
+Question asking
+Calculation
+Output
+
+The program should record information to a file, then load it back in.
+Valid credentials for login should be stored in a file and checked vs user input
+Questions should be loaded from a file
+The number of questions should be dynamic
+The calculation should be extensible
+The parameters for validating the answers should be loaded from a file (if patient segmentation, the segmentation values should be loaded)
+
+The proper data types should be used - tuples, dictionaries, etc. based on the datas attributes
+
+
+
+
