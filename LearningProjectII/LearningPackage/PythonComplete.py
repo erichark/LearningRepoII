@@ -32,7 +32,7 @@ def MainProg():
         answers = ['New York','Boston', 'London', 'Lyon']
         exiter = False
         while exiter == False:
-            print("This is a guessiong game.")
+            print("This is a guessing game.")
             guess = input('Guess a city I\'ve been to this year:')
             if guess in answers:
                 print("You're RIGHT!")
