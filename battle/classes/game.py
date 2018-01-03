@@ -65,14 +65,14 @@ class Person:
     
     def get_action(self):
         i=1
-        print("Actions:")
+        print("\nActions:")
         for item in self.actions:
             print(str(i), ":", item)
             i+= 1
         
     def get_magic(self):   
         i=1
-        print("Spells:")
+        print("\nSpells:")
         for spell in self.magic:
             print(str(i), ":", str(spell["name"]), "(cost", str(spell["cost"]) + ")")
             i+= 1
