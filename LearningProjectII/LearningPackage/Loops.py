@@ -23,5 +23,5 @@ Created on Mar 19, 2017
 
 
 n = 10
-for counter in range(0,n,1):
-    print("The number is 10")
+for anything in range(0,n,1):
+    print("The number is", anything)
