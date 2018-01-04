@@ -5,17 +5,25 @@ Created on Jan 2, 2018
 '''
 
 from classes.game import Person
+from classes.magic import Spell
 
 
-magic = [{"name": "Fire", "cost": 10, "dmg": 60}, 
-         {"name": "Thunder", "cost": 15, "dmg": 80},
-         {"name": "Ice", "cost": 10, "dmg": 60},
-         {"name": "Snakes", "cost": 5, "dmg": 30},
-         {"name": "Prismatic", "cost": 20, "dmg": 100},
-         ]
+#instantiate spells
+    #Black magic
+fire = Spell("Fire", 10, 100, "black")
+thunder = Spell("Thunder", 20, 200, "black")
+blizzard = Spell("Blizzard", 15, 150, "black")
+meteor = Spell("Meteor", 8, 80, "black")
+quake = Spell("Quake", 12, 120, "black")
 
-player = Person(460, 65, 60, 35, magic)
-enemy = Person(1000, 65, 25, 35, magic)
+    #white magic
+cure = Spell("Cure", 10, 100, "white")
+heal = Spell("Heal", 20, 200, "white")
+
+
+#instantiate people
+player = Person(460, 65, 60, 35, [fire, thunder, meteor, quake, cure])
+enemy = Person(1000, 65, 25, 35, [])
 
 print("An Enemy Attacks!!!")
 print ("=======================")
@@ -36,16 +44,23 @@ while running:
         player.get_magic()
         magic_choice = input("\nSelect a spell:")
         index = int(magic_choice) - 1
-        
-        cost = player.get_magic_cost(index)
-        spell = player.get_magic_name(index)
+        spell = player.magic[int(index)]
+        magic_dmg = spell.generate_magic_damage()
         player_current_mp = player.get_mp()
+        
+        
         #tests if the player has enough magic points, then applies damage and reduces player magic points
-        if player_current_mp >= cost:
-            player.reduce_mp(cost)
-            dmg = player.generate_magic_damage(index)
-            enemy.take_damage(dmg)
-            print("You cast", spell, ". You hit the enemy for", str(dmg) + ".")
+        if player_current_mp >= spell.cost:
+            player.reduce_mp(spell.cost)
+            dmg = spell.generate_magic_damage()
+            if spell.magic_type == "white":
+                player.heal(dmg)
+                print("You cast", str(spell.name), ". You are healed for", str(dmg)+".")
+            elif spell.magic_type == "black":
+                enemy.take_damage(dmg)
+                print("You cast", str(spell.name), ". You hit the enemy for", str(dmg) + ".")
+            
+            
             
         else:
             print("You don't have enough magic points!")
