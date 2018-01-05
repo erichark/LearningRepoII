@@ -6,7 +6,7 @@ Created on Jan 2, 2018
 
 from classes.game import Person
 from classes.magic import Spell
-
+from classes.inventory import Item
 
 #instantiate spells
     #Black magic
@@ -20,10 +20,24 @@ quake = Spell("Quake", 12, 120, "black")
 cure = Spell("Cure", 10, 100, "white")
 heal = Spell("Heal", 20, 200, "white")
 
+#instantiate items
+potion_clw = Item("CLW Potion", "potion", "A potion to heal 50 HP", 50)
+potion_csw = Item("CSW Potion", "potion", "A potion to heal 100 HP", 100)
+potion_heal = Item("Heal Potion", "potion", "A potion to Heal the player for 200 HP", 200)
+potion_restore = Item("Restore Player Potion", "potion", "A potion to restore the player of all HP and MP", 9999)
+potion_restoreParty = Item("Restore Party Potion", "potion", "A potion to restore the party of all HP and MP", 9999)
+
+grenade = Item("Holy Hand Grenade", "weapon", "A Holy Hand Grenade, doing 200 damage", 200)
 
 #instantiate people
-player = Person(460, 65, 60, 35, [fire, thunder, meteor, quake, cure])
-enemy = Person(1000, 65, 25, 35, [])
+player = Person(460, 65, 60, 35, [fire, thunder, meteor, quake, cure], [potion_clw, potion_csw, grenade])
+enemy = Person(1000, 65, 25, 35, [], [])
+
+
+
+
+
+grenade
 
 print("An Enemy Attacks!!!")
 print ("=======================")
@@ -44,6 +58,8 @@ while running:
         player.get_magic()
         magic_choice = input("\nSelect a spell:")
         index = int(magic_choice) - 1
+        if index == -1:
+            continue
         spell = player.magic[int(index)]
         magic_dmg = spell.generate_magic_damage()
         player_current_mp = player.get_mp()
@@ -65,6 +81,24 @@ while running:
         else:
             print("You don't have enough magic points!")
             continue
+     
+    elif index==2:
+        player.get_items()
+        item_choice = input("\n Select an Item:")
+        index = int(item_choice) - 1
+        if index == -1:
+            continue
+        item = player.items[int(index)]
+        if item.kind == "potion":
+            player.heal(item.prop)
+            print("You used a", item.name, "You are healed for", str(item.prop), "HP.")
+        elif item.kind == "weapon":
+            dmg = item.prop
+            enemy.take_damage(dmg)
+            print("You hit the enemy with", item.name, "for", str(item.prop), "damage.")
+        
+         
+         
         
     #enemy attack and reduce player hit points
     enemy_choice = 1
