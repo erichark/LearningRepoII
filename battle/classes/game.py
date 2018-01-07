@@ -78,7 +78,7 @@ class Person:
         print("\nItems:")
         print("0: Return to previous menu")
         for item in self.items:
-            print(str(i), ":", item.name, "(desc: ", str(item.description) + ")")
+            print(str(i), ":", item["item"].name, "(desc: ", str(item["item"].description) + ") quantity:", str(item["quantity"]))
             i+= 1   
         
            

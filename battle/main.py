@@ -24,20 +24,20 @@ heal = Spell("Heal", 20, 200, "white")
 potion_clw = Item("CLW Potion", "potion", "A potion to heal 50 HP", 50)
 potion_csw = Item("CSW Potion", "potion", "A potion to heal 100 HP", 100)
 potion_heal = Item("Heal Potion", "potion", "A potion to Heal the player for 200 HP", 200)
-potion_restore = Item("Restore Player Potion", "potion", "A potion to restore the player of all HP and MP", 9999)
-potion_restoreParty = Item("Restore Party Potion", "potion", "A potion to restore the party of all HP and MP", 9999)
+potion_restore = Item("Restore Player Potion", "elixer", "A potion to restore the player of all HP and MP", 9999)
+potion_restoreParty = Item("Restore Party Potion", "elixer", "A potion to restore the party of all HP and MP", 9999)
 
 grenade = Item("Holy Hand Grenade", "weapon", "A Holy Hand Grenade, doing 200 damage", 200)
 
+
+spells = [fire, thunder, meteor, quake, cure]
+items = [{"item": potion_clw, "quantity" : 10}, {"item": potion_csw, "quantity": 5}, {"item": grenade, "quantity": 1}]
+
 #instantiate people
-player = Person(460, 65, 60, 35, [fire, thunder, meteor, quake, cure], [potion_clw, potion_csw, grenade])
+player = Person(460, 65, 60, 35, spells, items)
 enemy = Person(1000, 65, 25, 35, [], [])
 
-
-
-
-
-grenade
+print("This is a color test")
 
 print("An Enemy Attacks!!!")
 print ("=======================")
@@ -88,16 +88,25 @@ while running:
         index = int(item_choice) - 1
         if index == -1:
             continue
-        item = player.items[int(index)]
-        if item.kind == "potion":
-            player.heal(item.prop)
-            print("You used a", item.name, "You are healed for", str(item.prop), "HP.")
-        elif item.kind == "weapon":
-            dmg = item.prop
-            enemy.take_damage(dmg)
-            print("You hit the enemy with", item.name, "for", str(item.prop), "damage.")
-        
-         
+        item = player.items[int(index)]["item"]
+        if player.items[int(index)]["quantity"] > 0:
+            if item.kind == "potion":
+                player.heal(item.prop)
+                player.items[int(index)]["quantity"] -= 1
+                print("You used a", item.name, "You are healed for", str(item.prop), "HP.")
+            elif item.kind == "elixer":
+                player.hp = player.maxhp
+                player.mp = player.maxmp
+                player.items[int(index)]["quantity"] -= 1
+                print("You used a", item.name, "Your HP and MP are restored.")
+            elif item.kind == "weapon":
+                dmg = item.prop
+                enemy.take_damage(dmg)
+                player.items[int(index)]["quantity"] -= 1
+                print("You hit the enemy with", item.name, "for", str(item.prop), "damage.")
+        else:
+            print("You don't have any of that item left!!")
+            continue
          
         
     #enemy attack and reduce player hit points
