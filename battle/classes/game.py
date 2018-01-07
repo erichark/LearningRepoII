@@ -68,17 +68,17 @@ class Person:
     def get_magic(self):   
         i=1
         print("\nSpells:")
-        print("0: Return to previous menu")
+        print("    0: Return to previous menu")
         for spell in self.magic:
-            print(str(i), ":", spell.name, "(cost", str(spell.cost) + ")")
+            print("    " + str(i), ":", spell.name, "(cost", str(spell.cost) + ")")
             i+= 1
     
     def get_items(self):   
         i=1
         print("\nItems:")
-        print("0: Return to previous menu")
+        print("    0: Return to previous menu")
         for item in self.items:
-            print(str(i), ":", item["item"].name, "(desc: ", str(item["item"].description) + ") quantity:", str(item["quantity"]))
+            print("    " + str(i), ":", item["item"].name, "(desc: ", str(item["item"].description) + ") quantity:", str(item["quantity"]))
             i+= 1   
         
            
