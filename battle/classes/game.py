@@ -8,7 +8,7 @@ import random
 
 class bcolors:
     HEADER = '\033[95m'
-    OKBLUE = '\033[46m'
+    OKBLUE = '\033[94m'
     OKGREEN = '\033[92m'
     WARNING = '\033[93m'
     FAIL = '\033[91m'
@@ -17,7 +17,7 @@ class bcolors:
     UNDERLINE = '\033[4m'
     
 class Person:
-    def __init__(self, hp, mp, atk, df, magic, items):
+    def __init__(self, name, hp, mp, atk, df, magic, items):
         self.hp = hp
         self.maxhp = hp
         self.mp = mp
@@ -28,6 +28,7 @@ class Person:
         self.magic = magic
         self.actions = ["Attack", "Magic", "Item"]
         self.items = items
+        self.name = name
         
     def generate_damage(self):
         return(random.randrange(self.atkl, self.atkh))
@@ -60,7 +61,8 @@ class Person:
           
     def get_action(self):
         i=1
-        print("\nActions:")
+        print("\n\n" + self.name + "'s Turn!!")
+        print("Actions:")
         for item in self.actions:
             print(str(i), ":", item)
             i+= 1
@@ -81,6 +83,8 @@ class Person:
             print("    " + str(i), ":", item["item"].name, "(desc: ", str(item["item"].description) + ") quantity:", str(item["quantity"]))
             i+= 1   
         
-           
+    def get_stats(self):
+        print("              _________________________             __________")
+        print(bcolors.OKBLUE + self.name, bcolors.OKGREEN + str(self.hp) + "/" + str(self.maxhp), "|X                        |     " + bcolors.OKBLUE + str(self.mp) + "/" + str(self.maxmp) + " |X         |" + bcolors.ENDC)       
     
             
