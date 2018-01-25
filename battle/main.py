@@ -52,10 +52,10 @@ running = True
 while running:
     #Print stats for all PCs
     print ("\n\n")
-    print("NAME           HP                                  MP")
+    print("NAME                HP                                    MP")
     for player in players:
         player.get_stats()
-     
+    enemy.get_enemy_stats()
     
     #start the battle   
     for player in players:

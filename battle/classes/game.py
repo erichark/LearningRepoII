@@ -8,7 +8,7 @@ import random
 
 class bcolors:
     HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
+    OKBLUE = '\033[96m'
     OKGREEN = '\033[92m'
     WARNING = '\033[93m'
     FAIL = '\033[91m'
@@ -84,7 +84,93 @@ class Person:
             i+= 1   
         
     def get_stats(self):
-        print("              _________________________             __________")
-        print(bcolors.OKBLUE + self.name, bcolors.OKGREEN + str(self.hp) + "/" + str(self.maxhp), "|X                        |     " + bcolors.OKBLUE + str(self.mp) + "/" + str(self.maxmp) + " |X         |" + bcolors.ENDC)       
-    
+        hp_ticks = (self.hp / self.maxhp) * 100 / 4
+        hp_bar=""
+        
+        
+        while hp_ticks > 0:
+            hp_bar+= "X"
+            hp_ticks -= 1
+        while len(hp_bar)< 25:
+            hp_bar+=" "
+        
+        mp_ticks = (self.mp / self.maxmp) * 100 / 10
+        mp_bar=""
+        
+        while mp_ticks > 0:
+            mp_bar+= "X"
+            mp_ticks -= 1
+        while len(mp_bar) < 10:
+            mp_bar+=" "
             
+        hp_len = len(str(self.hp) + "/" + str(self.maxhp))
+        
+        hp_padding = ""
+        
+        while hp_len<7:
+            hp_padding +=" "
+            hp_len +=1
+            
+            
+        formatted_hp = hp_padding + str(self.hp) + "/" + str(self.maxhp)
+        
+        mp_len = len(str(self.mp) + "/" + str(self.maxmp))
+        mp_padding = ""
+        
+        while mp_len<5:
+            mp_padding +=" "
+            mp_len +=1
+            
+            
+        formatted_mp = mp_padding + str(self.mp) + "/" + str(self.maxmp)   
+
+        print("                   _________________________              __________")
+        print(bcolors.OKBLUE + self.name + "      " +  bcolors.OKGREEN + formatted_hp + bcolors.ENDC +  " |" + bcolors.OKGREEN + hp_bar + bcolors.ENDC + "|      " + formatted_mp + " |" + bcolors.OKBLUE + mp_bar + bcolors.ENDC + "|")       
+    
+      
+      
+    def get_enemy_stats(self):
+        hp_ticks = (self.hp / self.maxhp) * 100 / 4
+        hp_bar=""
+        
+        
+        while hp_ticks > 0:
+            hp_bar+= "X"
+            hp_ticks -= 1
+        while len(hp_bar)< 25:
+            hp_bar+=" "
+        
+        mp_ticks = (self.mp / self.maxmp) * 100 / 10
+        mp_bar=""
+        
+        while mp_ticks > 0:
+            mp_bar+= "X"
+            mp_ticks -= 1
+        while len(mp_bar) < 10:
+            mp_bar+=" "
+            
+        hp_len = len(str(self.hp) + "/" + str(self.maxhp))
+        
+        hp_padding = ""
+        
+        while hp_len<9:
+            hp_padding +=" "
+            hp_len +=1
+            
+            
+        formatted_hp = hp_padding + str(self.hp) + "/" + str(self.maxhp)
+        
+        mp_len = len(str(self.mp) + "/" + str(self.maxmp))
+        mp_padding = ""
+        
+        while mp_len<5:
+            mp_padding +=" "
+            mp_len +=1
+            
+            
+        formatted_mp = mp_padding + str(self.mp) + "/" + str(self.maxmp)   
+
+        print("                   _________________________              __________")
+        print(bcolors.WARNING + self.name + "   " + bcolors.OKGREEN + formatted_hp + bcolors.ENDC +  " |" + bcolors.OKGREEN + hp_bar + bcolors.ENDC + "|      " + formatted_mp + " |" + bcolors.OKBLUE + mp_bar + bcolors.ENDC + "|")       
+    
+        
