@@ -7,6 +7,8 @@ Created on Jan 2, 2018
 from classes.game import Person, bcolors
 from classes.magic import Spell
 from classes.inventory import Item
+import random
+
 
 #instantiate spells
     #Black magic
@@ -38,9 +40,13 @@ player1 = Person("Blix", 460, 65, 60, 35, spells, items)
 player2 = Person("Dave", 460, 65, 60, 35, spells, items)
 player3 = Person("Bill", 460, 65, 60, 35, spells, items)
 
-enemy = Person("Enemy", 1000, 65, 25, 35, [], [])
+enemy1 = Person("Imp", 500, 20, 35, 35, [], [])
+enemy2 = Person("Mage", 1500, 65, 15, 25, [], [])
+enemy3 = Person("Imp", 500, 20, 35, 35, [], [])
 
 players = [player1, player2, player3]
+enemies = [enemy1, enemy2, enemy3]
+
 
 print(bcolors.BOLD + bcolors.OKGREEN +"Welcome to Underworld"+bcolors.ENDC)
 
@@ -55,18 +61,22 @@ while running:
     print("NAME                HP                                    MP")
     for player in players:
         player.get_stats()
-    enemy.get_enemy_stats()
+    
+    for enemy in enemies:
+        enemy.get_enemy_stats()
     
     #start the battle   
     for player in players:
+
         player.get_action()
         choice = input("What would you like to do?")
         index = int(choice) - 1
         #if the player chooses to attack, calcs damage and applies to enemy
         if index == 0:
             dmg = int(player.generate_damage())
-            enemy.take_damage(dmg)
-            print(bcolors.OKBLUE+"You hit the enemy for" , str(dmg) + "." + bcolors.ENDC)
+            enemy = player.choose_target(enemies)
+            enemies[enemy].take_damage(dmg)
+            print(bcolors.OKBLUE+"You hit the " + enemies[enemy].name + " for" , str(dmg) + "." + bcolors.ENDC)
         #if the player chooses magic, prints magic list and allows player to select
         elif index == 1:
             player.get_magic()
@@ -87,8 +97,9 @@ while running:
                     player.heal(dmg)
                     print(bcolors.OKGREEN + "    You cast", str(spell.name), ". You are healed for", str(dmg)+"." + bcolors.ENDC)
                 elif spell.magic_type == "black":
-                    enemy.take_damage(dmg)
-                    print(bcolors.OKBLUE + "    You cast", str(spell.name), ". You hit the enemy for", str(dmg) + "." + bcolors.ENDC)
+                    enemy = player.choose_target(enemies)
+                    enemies[enemy].take_damage(magic_dmg)
+                    print(bcolors.OKBLUE + "    You cast", str(spell.name), ". You hit the " + enemies[enemy].name + " for", str(dmg) + "." + bcolors.ENDC)
                 
                 
                 
@@ -115,26 +126,41 @@ while running:
                     print(bcolors.OKGREEN + "    You used a", item.name, "Your HP and MP are restored." + bcolors.ENDC)
                 elif item.kind == "weapon":
                     dmg = item.prop
-                    enemy.take_damage(dmg)
+                    enemy = player.choose_target(enemies)
+                    enemies[enemy].take_damage(dmg)
                     player.items[int(index)]["quantity"] -= 1
-                    print(bcolors.BOLD + bcolors.OKGREEN + "    You hit the enemy with", item.name, "for", str(item.prop), "damage." + bcolors.ENDC)
+                    print(bcolors.BOLD + bcolors.OKGREEN + "    You hit the " + enemies[enemy].name + " with", item.name, "for", str(item.prop), "damage." + bcolors.ENDC)
             else:
                 print(bcolors.BOLD + bcolors.FAIL + "    You don't have any of that item left!!" + bcolors.ENDC)
                 continue
-         
+        if enemies[enemy].get_hp()<= 0:
+            print("You killed the " + enemies[enemy].name)
+            del enemies[enemy]
         
     #enemy attack and reduce player hit points
     enemy_choice = 1
-    dmg = int(enemy.generate_damage())
-    player.take_damage(dmg)
+    target = random.randrange(0,3)
+    dmg = int(enemies[0].generate_damage())
+    players[target].take_damage(dmg)
     print(bcolors.BOLD + bcolors.FAIL + "The enemy hits you for", str(dmg) + "." + bcolors.ENDC)
     
     
     #when anyone's hitpoints get to 0, the other wins and program exits
-    if enemy.get_hp() == 0:
+    defeated_players = 0
+    for player in players:
+        if player.get_hp() <=0:
+            defeated_players +=1
+            
+    defeated_enemies = 0
+    for enemy in enemies:
+        if enemy.get_hp() <=0:
+            defeated_enemies +=1
+    
+    
+    if defeated_enemies == 3:
         print(bcolors.BOLD + bcolors.OKGREEN + "You won!" + bcolors.ENDC)
         running = False
-    elif player.get_hp() == 0:
+    elif defeated_players == 3:
         print(bcolors.FAIL + bcolors.BOLD + "The enemy defeated you!" + bcolors.ENDC)
         running = False
         
