@@ -5,6 +5,8 @@ Created on Jan 2, 2018
 '''
 
 import random
+from classes.magic import Spell
+
 
 class bcolors:
     HEADER = '\033[95m'
@@ -184,3 +186,18 @@ class Person:
         print(bcolors.WARNING + self.name + "   " + bcolors.OKGREEN + formatted_hp + bcolors.ENDC +  " |" + bcolors.OKGREEN + hp_bar + bcolors.ENDC + "|      " + formatted_mp + " |" + bcolors.OKBLUE + mp_bar + bcolors.ENDC + "|")       
     
         
+        
+    def choose_enemy_spell(self):
+            magic_choice = random.randrange(0 , len(self.magic))
+            chosen_spell = self.magic[magic_choice]
+            magic_dmg = chosen_spell.generate_damage() 
+            
+
+            if self.mp > chosen_spell.cost:
+                self.choose_enemy_spell()
+            else:
+                return chosen_spell, magic_dmg
+                    
+                    
+                    
+                    

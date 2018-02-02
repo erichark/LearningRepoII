@@ -32,17 +32,17 @@ potion_restoreParty = Item("Restore Party Potion", "elixer", "A potion to restor
 grenade = Item("Holy Hand Grenade", "weapon", "A Holy Hand Grenade, doing 200 damage", 200)
 
 
-spells = [fire, thunder, meteor, quake, cure]
+spells = [fire, thunder, blizzard, meteor, quake, cure, heal]
 items = [{"item": potion_clw, "quantity" : 10}, {"item": potion_csw, "quantity": 5}, {"item": grenade, "quantity": 1}]
-
+enemy_spells = [fire, thunder, meteor, quake, cure, heal]
 #instantiate people
 player1 = Person("Blix", 460, 65, 60, 35, spells, items)
 player2 = Person("Dave", 460, 65, 60, 35, spells, items)
 player3 = Person("Bill", 460, 65, 60, 35, spells, items)
 
-enemy1 = Person("Imp", 500, 20, 35, 35, [], [])
-enemy2 = Person("Mage", 1500, 65, 15, 25, [], [])
-enemy3 = Person("Imp", 500, 20, 35, 35, [], [])
+enemy1 = Person("Imp", 500, 20, 35, 35, [enemy_spells], [])
+enemy2 = Person("Mage", 1500, 65, 15, 25, [enemy_spells], [])
+enemy3 = Person("Imp", 500, 20, 35, 35, [enemy_spells], [])
 
 players = [player1, player2, player3]
 enemies = [enemy1, enemy2, enemy3]
@@ -136,16 +136,10 @@ while running:
         if enemies[enemy].get_hp()<= 0:
             print("You killed the " + enemies[enemy].name)
             del enemies[enemy]
-        
-    #enemy attack and reduce player hit points
-    enemy_choice = 1
-    target = random.randrange(0,3)
-    dmg = int(enemies[0].generate_damage())
-    players[target].take_damage(dmg)
-    print(bcolors.BOLD + bcolors.FAIL + "The enemy hits you for", str(dmg) + "." + bcolors.ENDC)
-    
-    
-    #when anyone's hitpoints get to 0, the other wins and program exits
+            
+            
+            
+    #check if battle is over
     defeated_players = 0
     for player in players:
         if player.get_hp() <=0:
@@ -164,4 +158,19 @@ while running:
         print(bcolors.FAIL + bcolors.BOLD + "The enemy defeated you!" + bcolors.ENDC)
         running = False
         
+             
         
+    #enemy attack and reduce player hit points
+    for enemy in enemies:
+        enemy_choice = random.randrange(0 , 3)
+        
+        if enemy_choice == 0:
+            target = random.randrange(0,3)
+            dmg = enemy.generate_damage()
+            players[target].take_damage(dmg)
+            print(bcolors.BOLD + bcolors.FAIL + enemy.name + " hits " + players[target].name + "  for", str(dmg) + "." + bcolors.ENDC)
+        
+        elif enemy_choice==1:
+            spell, magic_dmg = enemy.choose_enemy_spell()
+            print("Enemy chose", spell, "and did ", magic_dmg)
+    
