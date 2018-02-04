@@ -7,6 +7,7 @@ Created on Jan 2, 2018
 from classes.game import Person, bcolors
 from classes.magic import Spell
 from classes.inventory import Item
+
 import random
 
 
@@ -40,9 +41,9 @@ player1 = Person("Blix", 460, 65, 60, 35, spells, items)
 player2 = Person("Dave", 460, 65, 60, 35, spells, items)
 player3 = Person("Bill", 460, 65, 60, 35, spells, items)
 
-enemy1 = Person("Imp", 500, 20, 35, 35, [enemy_spells], [])
-enemy2 = Person("Mage", 1500, 65, 15, 25, [enemy_spells], [])
-enemy3 = Person("Imp", 500, 20, 35, 35, [enemy_spells], [])
+enemy1 = Person("Imp", 500, 20, 35, 35, enemy_spells, [])
+enemy2 = Person("Mage", 1500, 65, 15, 25, enemy_spells, [])
+enemy3 = Person("Imp", 500, 20, 35, 35, enemy_spells, [])
 
 players = [player1, player2, player3]
 enemies = [enemy1, enemy2, enemy3]
@@ -84,7 +85,7 @@ while running:
             index = int(magic_choice) - 1
             if index == -1:
                 continue
-            spell = player.magic[int(index)]
+            spell = player.magic[index]
             magic_dmg = spell.generate_magic_damage()
             player_current_mp = player.get_mp()
             
@@ -92,10 +93,9 @@ while running:
             #tests if the player has enough magic points, then applies damage and reduces player magic points
             if player_current_mp >= spell.cost:
                 player.reduce_mp(spell.cost)
-                dmg = spell.generate_magic_damage()
                 if spell.magic_type == "white":
-                    player.heal(dmg)
-                    print(bcolors.OKGREEN + "    You cast", str(spell.name), ". You are healed for", str(dmg)+"." + bcolors.ENDC)
+                    player.heal(magic_dmg)
+                    print(bcolors.OKGREEN + "    You cast", str(spell.name), ". You are healed for", str(magic_dmg)+"." + bcolors.ENDC)
                 elif spell.magic_type == "black":
                     enemy = player.choose_target(enemies)
                     enemies[enemy].take_damage(magic_dmg)
@@ -159,18 +159,19 @@ while running:
         running = False
         
              
-        
+          
     #enemy attack and reduce player hit points
     for enemy in enemies:
-        enemy_choice = random.randrange(0 , 3)
+        enemy_choice = random.randrange(0 , 1)
+        target = random.randrange (0, len(players))
         
         if enemy_choice == 0:
-            target = random.randrange(0,3)
             dmg = enemy.generate_damage()
             players[target].take_damage(dmg)
             print(bcolors.BOLD + bcolors.FAIL + enemy.name + " hits " + players[target].name + "  for", str(dmg) + "." + bcolors.ENDC)
         
         elif enemy_choice==1:
             spell, magic_dmg = enemy.choose_enemy_spell()
-            print("Enemy chose", spell, "and did ", magic_dmg)
-    
+            players[target].take_damage(magic_dmg)
+            print(bcolors.BOLD + bcolors.FAIL + enemy.name, "chose", spell, "and did ", magic_dmg, "to " + players[target].name + bcolors.ENDC)
+        
