@@ -174,4 +174,8 @@ while running:
             spell, magic_dmg = enemy.choose_enemy_spell()
             players[target].take_damage(magic_dmg)
             print(bcolors.BOLD + bcolors.FAIL + enemy.name, "chose", spell.name, "and did ", magic_dmg, "to " + players[target].name + bcolors.ENDC)
+            enemy.mp -= spell.cost
         
+        if players[target].get_hp()<=0:
+            print(bcolors.BOLD+bcolors.FAIL+enemy.name ,"killed", players[target].name+"!!!!!!"+bcolors.ENDC)
+            del players[target]    

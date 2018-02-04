@@ -192,9 +192,9 @@ class Person:
             magic_choice = random.randrange(0 , len(self.magic))
             chosen_spell = self.magic[magic_choice]
             magic_dmg = chosen_spell.generate_magic_damage() 
-        
+            hp_pct = self.hp/self.maxhp * 100
 
-            if self.mp < chosen_spell.cost:
+            if self.mp < chosen_spell.cost or (hp_pct < 50 and self.magic[magic_choice].type == "white"):
                 self.choose_enemy_spell()
             else:
                 return chosen_spell, magic_dmg               
