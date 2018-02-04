@@ -162,7 +162,7 @@ while running:
           
     #enemy attack and reduce player hit points
     for enemy in enemies:
-        enemy_choice = random.randrange(0 , 1)
+        enemy_choice = random.randrange(0 , 2)
         target = random.randrange (0, len(players))
         
         if enemy_choice == 0:
@@ -170,8 +170,8 @@ while running:
             players[target].take_damage(dmg)
             print(bcolors.BOLD + bcolors.FAIL + enemy.name + " hits " + players[target].name + "  for", str(dmg) + "." + bcolors.ENDC)
         
-        elif enemy_choice==1:
+        elif enemy_choice==1:            
             spell, magic_dmg = enemy.choose_enemy_spell()
             players[target].take_damage(magic_dmg)
-            print(bcolors.BOLD + bcolors.FAIL + enemy.name, "chose", spell, "and did ", magic_dmg, "to " + players[target].name + bcolors.ENDC)
+            print(bcolors.BOLD + bcolors.FAIL + enemy.name, "chose", spell.name, "and did ", magic_dmg, "to " + players[target].name + bcolors.ENDC)
         

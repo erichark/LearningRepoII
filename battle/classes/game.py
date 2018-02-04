@@ -5,7 +5,7 @@ Created on Jan 2, 2018
 '''
 
 import random
-from main import players
+
 
 
 
@@ -192,10 +192,9 @@ class Person:
             magic_choice = random.randrange(0 , len(self.magic))
             chosen_spell = self.magic[magic_choice]
             magic_dmg = chosen_spell.generate_magic_damage() 
-            target = random.randrange(0, len(players))
-            players[target].take_damage(magic_dmg)            
+        
 
-            if self.mp >= chosen_spell.cost:
+            if self.mp < chosen_spell.cost:
                 self.choose_enemy_spell()
             else:
                 return chosen_spell, magic_dmg               
