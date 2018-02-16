@@ -5,20 +5,12 @@ Created on Feb 9, 2018
 '''
 
 import requests
-import os
+import json
 
-params = {"q":"pizza"}
-r = requests.get("https://www.bing.com/search", params = params)
+url = "https://www.googleapis.com/urlshortener/v1/url"
+payload = {"LongUrl": "http://example.com"}
+headers = {"Content-Type": "application/json"}
 
-print("Status:", r.status_code)
-print(r.url)
-print(r.text)
+r = requests.post(url, json = payload, headers = headers)
 
-
-f = open("./index.html", "w+")
-f.seek(0)
-f.write(r.text)
-
-print("Data dumped to file")
-    
-    
+print(json.loads(r.text)["error"]["code"])
