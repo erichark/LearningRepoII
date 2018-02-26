@@ -7,8 +7,7 @@ Created on Feb 19, 2018
 import datetime
 import pymongo
 from pymongo import MongoClient
-import datetime
-from sqlalchemy.sql.functions import current_date
+
 
 client = MongoClient()
 db = client.mydb
