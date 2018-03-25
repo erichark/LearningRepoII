@@ -1,0 +1,27 @@
+@charset "ISO-8859-1";
+
+
+	
+	.bright-colors {
+	color:orange;
+	}
+	
+	.back-class {
+	background-color: silver;
+	}
+	
+	a:link{
+		color:red;
+	}
+	
+	a:visited {
+	color:green;
+	}
+	
+	a:hover {
+	background-color: blue;
+	}
+	
+	a:active {
+	color: blue;
+	}
