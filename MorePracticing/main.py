@@ -3,11 +3,9 @@ Created on Jan 4, 2019
 
 @author: root
 '''
-import random
 
 
-
-#a file for practing Python
+"""#a file for practing Python
 
 #create a couple of games and let user choose what they want to play
 
@@ -85,5 +83,27 @@ while choice in ("Yes", "yes", "y", "Y", "1", "OK", "YES", "YEs"):
 
 print("OK", user_name, "have a nice day.")       
         
-        
-        
+"""
+
+import simplejson as json
+import os
+
+if os.path.isfile("./ages.json") and os.stat("./ages.json").st_size != 0:
+    old_file = open("./ages.json", "r+")
+    data = json.loads(old_file.read())
+    print("Current age is:", data["age"], "--adding a year")
+    data["age"] +=1 
+    print("New age is", data["age"])
+    
+else:
+    old_file = open("./ages.json", "w+")
+    data = {"Name": "Eric", "age":43}
+    print("Initializing file. Age is", data["age"])
+    
+old_file.seek(0)
+old_file.write(json.dumps(data))
+
+
+
+
+
