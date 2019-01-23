@@ -40,11 +40,12 @@ class Dice:
         elif roll_value >= int(comparator.text()):
             result_string = "Success"
         elif roll_value < int(comparator.text()):
-            result_string =  "Fail"
+            result_string = "Fail"
         else:
-            result_string =  "There has been an error!" 
-        #result_string = str("Die:", Dice.selected_dice_value, "Roll:", roll_value, "Result:", result_string)
-        results.setText(result_string)
+            result_string =  "There has been an error!"
+
+        output_string = ("Die: {0}, Roll: {1}, Result: {2}".format(Dice.seleceted_dice_value, roll_value, result_string))
+        results.setText(output_string)
         
     def SelectDiceValue(self, dice_value):
         Dice.selected_dice_value = dice_value
@@ -107,4 +108,3 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = UtilityApp()
     sys.exit(app.exec())
-    
