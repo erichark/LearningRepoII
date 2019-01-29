@@ -18,11 +18,14 @@ deck
     builds a set of 52 cards
     (Do I want to set up a set of 5 decks, or just randomly generate cards?)
 
-Methods:
+Methods (what do they attach to? which class?):
     deal
     non - player decision/action
     dealer decision/action
     calculate money loss/gain
+
+
+how to join a player with his hand?
 
 
 '''
