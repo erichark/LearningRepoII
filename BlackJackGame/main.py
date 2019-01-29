@@ -29,7 +29,7 @@ how to join a player with his hand?
 
 
 Use case - Player setup:
-Instantiate the dealer?
+Instantiate the dealer
 Greet player
 Ask for name
 Instantiate player
@@ -72,12 +72,6 @@ Use case - playing the game
         if sum <= 17, stand
         once dealer stands, compare to each player and indicate winners and losers and increment $$$
 
-
-
 Phase II - split/double down/etc?
-
-
-
-
 
 """
