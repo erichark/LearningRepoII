@@ -1,9 +1,8 @@
-'''
+"""
 Created on Jan 18, 2019
 
 @author: root
-'''
-
+"""
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -14,7 +13,7 @@ class Dice:
     """Class for handling the dice setup, selection of die, and roll vs. comparator. """
     
     def __init__(self, selected_dice_value, comparator, text, results):
-        #init the die selector buttons (2 through 100)
+        """init the die selector buttons (2 through 100)"""
         self.dieButton = QPushButton(str(text))
         self.text = text
         self.dieButton.clicked.connect(lambda: self.SelectDiceValue(self.text))
@@ -27,8 +26,8 @@ class Dice:
         self.rollButton.clicked.connect(lambda: self.CompareResults(self.selected_dice_value, self.comparator, self.results))
         
     def CompareResults(self, selected_dice_value, comparator, results):
-        #gets the value of the rolled dice and compares, returns a string indicating result
-        #everything is working, excepting getting the value of the comparator.
+        """gets the value of the rolled dice and compares, returns a string indicating result
+        everything is working, excepting getting the value of the comparator."""
         Dice.seleceted_dice_value = "2"
         print("Comparator is:", comparator.text())
         print("Selected Dice Value is:", Dice.selected_dice_value)
