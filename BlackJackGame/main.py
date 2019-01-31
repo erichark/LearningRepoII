@@ -75,3 +75,73 @@ Use case - playing the game
 Phase II - split/double down/etc?
 
 """
+import random
+
+class Player:
+    def __init__(self, name, money, table_pos, cards):
+        self.name = name
+        self.money = money
+        self.table_pos = table_pos
+        self.cards = cards
+
+    def adjust_money(self, bet_result):
+        if self.name == "Dealer":
+            pass
+        else:
+            self.money = self.money + bet_result
+
+
+class NPC (Player):
+    def __init__(self):
+        pass
+
+    def NPCBet(self):
+        if self.money > 100:
+            bet = random.randint(1,9) * 10
+        else:
+            bet = 10
+        return bet
+
+
+class User(Player):
+    pass
+
+class Dealer(Player):
+    pass
+
+class Card:
+    def __init__(self, suit, value):
+        self.suit = suit
+        self.value = value
+
+    def cardValue(self):
+        if self.value == "A":
+            return 11
+        elif self.value== "K" or "Q" or "J":
+            return 10
+        else:
+            return str(self.value)
+
+
+class Deck(Card):
+    def __init__(self):
+        pass
+
+
+"""
+    def Shuffle(self):
+        random.shuffle(self)
+
+"""
+
+
+if __name__ =="__main__":
+    suits = ("Hearts", "Diamonds", "Spades", "Clubs")
+    #suits = ["♠", "♥", "♦", "♣"]
+    card_list = ("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A")
+
+
+
+    pass
+
+
