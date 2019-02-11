@@ -1,1 +1,0 @@
-this is the content that we want to write into our file.
