@@ -1,6 +1,7 @@
 """
 created on 1/28/19
 created by: root
+
 """
 import random
 from reportbug.ui.text_ui import handle_bts_query
