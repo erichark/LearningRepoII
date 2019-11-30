@@ -22,5 +22,7 @@ spell_dmg = player1.generate_spell_damage(1)
 player1.take_damage(spell_dmg)
 print(spell_dmg)
 print("Player1 hp =", player1.hp)
+player1.choose_magic()
+player1.choose_action()
 
 
