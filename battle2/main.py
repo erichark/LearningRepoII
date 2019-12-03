@@ -32,4 +32,3 @@ while running:
         dmg = enemy1.generate_damage()
         player1.take_damage(dmg)
         print("The player takes", dmg, "points of damage. Player HP =", player1.get_hp())
-
