@@ -9,6 +9,7 @@ Classes file
 
 import random
 
+
 class bcolors:
     PURPLE = '\033[95m'
     BLUE = '\033[96m'
@@ -18,6 +19,7 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
     ENDC = '\033[0m'
+
 
 class Person:
     def __init__(self, hp, mp, atk, df, magic):

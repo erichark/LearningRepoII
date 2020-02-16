@@ -6,7 +6,8 @@
 
 '''
 
-from classes.game import Person, bcolors
+from classfolder.gamestuff import Person, bcolors
+import random
 
 
 magic = [{"name": "Fireball", "cost": 10, "dmg": 50},
