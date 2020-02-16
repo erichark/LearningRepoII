@@ -43,6 +43,12 @@ class Person:
             self.hp = 0
         return self.hp
 
+    def take_healing(self, meds):
+        self.hp += meds
+        if self.hp > self.maxhp:
+            self.hp = self.maxhp
+        return self.hp
+
     def get_hp(self):
         return self.hp
 
@@ -59,18 +65,18 @@ class Person:
         self.mp -= cost
 
     def choose_action(self):
-        i = 1
+        i = 0
         print("Actions:")
         for item in self.actions:
-            print(str(i) + ":", item)
+            print(str(i+1) + ":", item)
             i += 1
 
     def choose_magic(self):
         print("Magic:")
         i = 0
         for spell in self.magic:
-            print(str(i) + ":", spell.name, "(Cost:", str(spell.cost) + ")")
-            i+=1
+            print(str(i+1) + ":", spell.name, "(Cost:", str(spell.cost) + ")")
+            i += 1
 
 
 

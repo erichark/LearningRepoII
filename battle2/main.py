@@ -41,23 +41,34 @@ while running:
     # If action choice is magic, choose the magic spell
     elif index == 1:
         player1.choose_magic()
-        magic_choice = int(input("Choose Magic:"))
-        # generate magic damage and spell cost, get other attributes of spell as needed
+        print("____________________________________________")
+        magic_choice = int(input("Choose Magic: ")) - 1
+
         spell = player1.magic[magic_choice]
-        dmg = spell.generate_damage()
         current_mp = player1.get_mp()
 
         # Make sure the player has enough magic points. if not they have to choose again.
         if spell.cost > current_mp:
             print(bcolors.YELLOW, "\nYou don't have enough Magic Points. Choose again.", bcolors.ENDC)
             continue
-        # The enemy takes damage and the players magic points are reduced
-        else:
-            enemy1.take_damage(dmg)
-            player1.reduce_mp(spell.cost)
-            current_mp = player1.get_mp()
-            print(bcolors.BLUE, bcolors.BOLD, "You hit the enemy for", str(dmg) + ". You have", str(current_mp), "magic points left.", bcolors.ENDC)
 
+        else:
+            # determine if it's white (healing) or black(Hurting) magic
+            print(spell.kind)
+            if spell.kind == "Black":
+                # generate magic damage and spell cost
+                dmg = spell.generate_damage()
+                enemy1.take_damage(dmg)
+                player1.reduce_mp(spell.cost)
+                current_mp = player1.get_mp()
+                print(bcolors.BLUE, bcolors.BOLD, "You hit the enemy for", str(dmg) + ". You have", str(current_mp), "magic points left.", bcolors.ENDC)
+            elif spell.kind == "White":
+                # generate amount to heal and apply to character, lower their mp
+                meds = spell.generate_healing()
+                player1.take_healing(meds)
+                player1.reduce_mp(spell.cost)
+                current_mp = player1.get_mp()
+                print(bcolors.BLUE, bcolors.BOLD, "You healed yourself for", str(meds) + ". You have", str(current_mp), "magic points left.", bcolors.ENDC)
 
     # Test if the enemy has no hp left, if so, deal with it.
     if enemy1.get_hp() == 0:
@@ -65,7 +76,6 @@ while running:
         print(bcolors.BLUE, bcolors.BOLD, "The enemy has resurrected!!!!", bcolors.ENDC)
         enemy1.hp = 50
         # TODO keep enemy from resurrecting each time.
-
 
     # now the enemy attacks, physical damage only for now
     # TODO give enemy magic and randomize their choices for attacks and spell choice
