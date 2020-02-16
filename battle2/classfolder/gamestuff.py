@@ -4,10 +4,11 @@
     November 25, 2019
     Second RPG game
 
-Classes file
+Utility and Person Classes file
 '''
 
 import random
+from magic import Spell
 
 
 class bcolors:
@@ -31,15 +32,10 @@ class Person:
         self.atk_high = atk + 10
         self.df = df
         self.magic = magic
-        self.actions = {"Attack", "Magic"}
+        self.actions = {"Magic", "Attack"}
 
     def generate_damage(self):
         return random.randrange(self.atk_low, self.atk_high)
-
-    def generate_spell_damage(self , i):
-        mgl = self.magic[i]["dmg"] - 5
-        mgh = self.magic[i]["dmg"] + 5
-        return random.randrange(mgl, mgh)
 
     def take_damage(self, dmg):
         self.hp -= dmg
@@ -62,12 +58,6 @@ class Person:
     def reduce_mp(self, cost):
         self.mp -= cost
 
-    def get_spell_name(self, i):
-        return self.magic[i]["name"]
-
-    def get_spell_cost(self, i):
-        return self.magic[i]["cost"]
-
     def choose_action(self):
         i = 1
         print("Actions:")
@@ -76,11 +66,15 @@ class Person:
             i += 1
 
     def choose_magic(self):
-        i = 0
         print("Magic:")
+        i = 0
         for spell in self.magic:
-            print(str(i) + ":", spell["name"], "(Cost:", str(spell["cost"]) + ")")
-            i += 1
+            print(str(i) + ":", spell.name, "(Cost:", str(spell.cost) + ")")
+            i+=1
+
+
+
+
 
 
 
