@@ -95,5 +95,5 @@ while running:
         print(bcolors.RED, bcolors.BOLD, "GOOD BYE!!!", bcolors.ENDC)
         running = False
 
-#TODO create and use objects
-#TODO multiple players in a party, multiple enemies in a group
+# TODO create and use objects
+# TODO multiple players in a party, multiple enemies in a group
