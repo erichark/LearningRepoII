@@ -11,9 +11,9 @@ from classfolder.magic import Spell
 
 import random
 # instantiate Spells
-fireball = Spell("Fireball", 10, 50, "Black")
-lightening = Spell("Lightening", 15, 75, "Black")
-ice = Spell("Ice Storm", 8, 40, "Black")
+fireball = Spell("Fireball", 10, 50, "black")
+lightening = Spell("Lightening", 15, 75, "black")
+ice = Spell("Ice Storm", 8, 40, "black")
 cure = Spell("Cure", 10, 50, "white")
 heal = Spell("Heal", 15, 200, "white")
 
@@ -54,15 +54,15 @@ while running:
 
         else:
             # determine if it's white (healing) or black(Hurting) magic
-            print(spell.kind)
-            if spell.kind == "Black":
+
+            if spell.kind == "black":
                 # generate magic damage and spell cost
                 dmg = spell.generate_damage()
                 enemy1.take_damage(dmg)
                 player1.reduce_mp(spell.cost)
                 current_mp = player1.get_mp()
                 print(bcolors.BLUE, bcolors.BOLD, "You hit the enemy for", str(dmg) + ". You have", str(current_mp), "magic points left.", bcolors.ENDC)
-            elif spell.kind == "White":
+            elif spell.kind == "white":
                 # generate amount to heal and apply to character, lower their mp
                 meds = spell.generate_healing()
                 player1.take_healing(meds)

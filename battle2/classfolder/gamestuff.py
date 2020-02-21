@@ -32,7 +32,7 @@ class Person:
         self.atk_high = atk + 10
         self.df = df
         self.magic = magic
-        self.actions = {"Magic", "Attack"}
+        self.actions = {"Attack", "Magic"}
 
     def generate_damage(self):
         return random.randrange(self.atk_low, self.atk_high)
