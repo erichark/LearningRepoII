@@ -78,6 +78,32 @@ class Person:
             print(str(i+1) + ":", spell.name, "(Cost:", str(spell.cost) + ")")
             i += 1
 
+    def enemy_choose_action(self):
+        number = random.randrange(1,3)
+        # first, let's see if we need healing.
+        # TODO heal mp cost is hard coded and should be handled better
+        if self.get_hp() < (.33 * self.get_max_hp()) and self.get_mp() > 15:
+            action = "white_magic"
+            return action
+        elif number == 1 and self.get_mp() > 15:
+            return "black_magic"
+        else :
+            action = "physical"
+            return action
+
+    def enemy_choose_magic(self, magic_type):
+        # TODO magic list positions are currently hardcoded, find a way to fix this so that it chooses randomly from the spells until it's ok
+        # perhaps a while loop that randomly generates spells and compares the spell.kind to magic_type
+
+        if magic_type == "white":
+            index = random.randrange(3,4)
+            return index
+        elif magic_type == "black":
+            index = random.randrange(0,2)
+            return index
+        else:
+            print("There is an error in the enemy_choose_magic function")
+
 
 
 

@@ -19,7 +19,7 @@ heal = Spell("Heal", 15, 200, "white")
 
 # instantiate players
 player1 = Person(460, 50, 50, 250, [fireball, lightening, ice, cure, heal])
-enemy1 = Person(500, 0, 25, 250, [])
+enemy1 = Person(500, 75, 25, 250, [fireball, lightening, ice, cure, heal])
 
 print(bcolors.PURPLE, "Welcome to Dungeon Slayer.", bcolors.ENDC)
 print(bcolors.PURPLE, "A text based RPG by Blix. December 2020.", bcolors.ENDC)
@@ -79,9 +79,37 @@ while running:
 
     # now the enemy attacks, physical damage only for now
     # TODO give enemy magic and randomize their choices for attacks and spell choice
+
+    action = enemy1.enemy_choose_action()
+    if action == "black_magic":
+        index = enemy1.enemy_choose_magic("black")
+        dmg = enemy1.magic[index].generate_damage()
+        player1.take_damage(dmg)
+        enemy1.reduce_mp(enemy1.magic[index].cost)
+        current_mp = enemy1.get_mp()
+        print(bcolors.RED, bcolors.BOLD, "The enemy casts", enemy1.magic[index].name, "and hits player for", str(dmg), "points of damage!!", bcolors.ENDC)
+    elif action == "white_magic":
+        # generate amount to heal and apply to character, lower their mp
+        index = enemy1.enemy_choose_magic("white")
+        meds = enemy1.magic[index].generate_healing()
+        enemy1.take_healing(meds)
+        enemy1.reduce_mp(enemy1.magic[index].cost)
+        current_mp = enemy1.get_mp()
+        print(bcolors.BLUE, bcolors.BOLD, "The enemy healed themselves for", str(meds) , bcolors.ENDC)
+    elif action == "physical":
+        dmg = enemy1.generate_damage()
+        player1.take_damage(dmg)
+        print(bcolors.RED, bcolors.BOLD,"The player takes", dmg, "points of damage.", bcolors.ENDC)
+    else:
+        print("You have an error.")
+
+    '''
+    #old simple way of enemy dealing only physical damage
     dmg = enemy1.generate_damage()
     player1.take_damage(dmg)
     print("The player takes", dmg, "points of damage.")
+    '''
+
 
     # Print out the current HP of everyone
     print(bcolors.GREEN + "_______________________________________________________" + bcolors.ENDC)
