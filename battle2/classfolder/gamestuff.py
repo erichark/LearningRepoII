@@ -92,17 +92,15 @@ class Person:
             return action
 
     def enemy_choose_magic(self, magic_type):
-        # TODO magic list positions are currently hardcoded, find a way to fix this so that it chooses randomly from the spells until it's ok
-        # perhaps a while loop that randomly generates spells and compares the spell.kind to magic_type
 
-        if magic_type == "white":
-            index = random.randrange(3,4)
-            return index
-        elif magic_type == "black":
-            index = random.randrange(0,2)
-            return index
-        else:
-            print("There is an error in the enemy_choose_magic function")
+        running = True
+        while running:
+            spell_index = random.randrange(0,4)
+            if self.magic[spell_index].kind == magic_type:
+                return spell_index
+                running = false
+            else:
+                continue
 
 
 

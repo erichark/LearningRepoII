@@ -77,9 +77,7 @@ while running:
         enemy1.hp = 50
         # TODO keep enemy from resurrecting each time.
 
-    # now the enemy attacks, physical damage only for now
-    # TODO give enemy magic and randomize their choices for attacks and spell choice
-
+    # now the enemy attacks
     action = enemy1.enemy_choose_action()
     if action == "black_magic":
         index = enemy1.enemy_choose_magic("black")
