@@ -93,7 +93,7 @@ while running:
         enemy1.take_healing(meds)
         enemy1.reduce_mp(enemy1.magic[index].cost)
         current_mp = enemy1.get_mp()
-        print(bcolors.BLUE, bcolors.BOLD, "The enemy healed themselves for", str(meds) , bcolors.ENDC)
+        print(bcolors.BLUE, bcolors.BOLD, "The enemy casts", enemy1.magic[index].name, "and heals themselves for", str(meds), bcolors.ENDC)
     elif action == "physical":
         dmg = enemy1.generate_damage()
         player1.take_damage(dmg)

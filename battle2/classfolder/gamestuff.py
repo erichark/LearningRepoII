@@ -80,14 +80,21 @@ class Person:
 
     def enemy_choose_action(self):
         number = random.randrange(1,3)
-        # first, let's see if we need healing.
-        # TODO heal mp cost is hard coded and should be handled better
-        if self.get_hp() < (.33 * self.get_max_hp()) and self.get_mp() > 15:
+        # first, let's see if enemy has enough magic points to heal and if enemy needs healing.
+
+        # find the highest magic points needed for healing to ensure you can cast it
+        mp_needed = 0
+        for spell in self.magic:
+            if spell.kind == "white":
+                if spell.cost > mp_needed:
+                    mp_needed = spell.cost
+        # Check if the enemy has enough damage to need healing
+        if self.get_hp() < (.33 * self.get_max_hp()) and self.get_mp() > mp_needed:
             action = "white_magic"
             return action
         elif number == 1 and self.get_mp() > 15:
             return "black_magic"
-        else :
+        else:
             action = "physical"
             return action
 
