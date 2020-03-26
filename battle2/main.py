@@ -74,7 +74,7 @@ while running:
     if enemy1.get_hp() == 0:
         print(bcolors.RED, bcolors.BOLD, "The enemy has died!!!", bcolors.ENDC)
         print(bcolors.BLUE, bcolors.BOLD, "The enemy has resurrected!!!!", bcolors.ENDC)
-        enemy1.hp = 50
+        enemy1.hp = 400
         # TODO keep enemy from resurrecting each time.
 
     # now the enemy attacks

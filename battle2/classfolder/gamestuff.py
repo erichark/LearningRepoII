@@ -79,15 +79,25 @@ class Person:
             i += 1
 
     def enemy_choose_action(self):
+        # TODO turn into list comprehension?
+
+        '''[ expression for item in list if conditional ]
+        for item in list:
+            if conditional:
+
+                expression
+        https://stackoverflow.com/questions/4406389/if-else-in-a-list-comprehension
+        '''
         number = random.randrange(1,3)
         # first, let's see if enemy has enough magic points to heal and if enemy needs healing.
 
         # find the highest magic points needed for healing to ensure you can cast it
         mp_needed = 0
+        # [mp_needed = spell.cost for spell in self.magic if spell.kind == "white" and spell.cost > mp_needed]
         for spell in self.magic:
-            if spell.kind == "white":
-                if spell.cost > mp_needed:
-                    mp_needed = spell.cost
+            if spell.kind == "white" and spell.cost > mp_needed:
+                mp_needed = spell.cost
+
         # Check if the enemy has enough damage to need healing
         if self.get_hp() < (.33 * self.get_max_hp()) and self.get_mp() > mp_needed:
             action = "white_magic"
