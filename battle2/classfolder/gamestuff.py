@@ -119,11 +119,24 @@ class Person:
             else:
                 continue
 
+"""
+    def displayInventory (inventory):
+        print("Inventory:")
+        totNum = 0
+        for item, number in inventory.items():
+            print(f"{number}: \t {item}")
+            totNum = totNum + number
+        print(f"Total Number of Items = {totNum}")
 
 
+    def addToInventory(inventory, addedItems):
 
+        for item in addedItems:
+            inventory.setdefault(item, 0)
+            inventory[item] = (inventory[item] + 1)
+        return inventory
 
-
+"""
 
 
 
