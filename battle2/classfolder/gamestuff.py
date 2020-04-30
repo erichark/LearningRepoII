@@ -136,6 +136,28 @@ class Person:
             inventory[item] = (inventory[item] + 1)
         return inventory
 
+# TODO - use left and right justify functions to create a pretty printer that prints spells, actions, inventory, etc. 
+See Justifying Text with the rjust(), ljust(), and center() Methods https://automatetheboringstuff.com/2e/chapter6/
+
+tableData = [['apples', 'oranges', 'cherries', 'banana'],
+             ['Alice', 'Bob', 'Carol', 'David'],
+             ['dogs', 'cats', 'moose', 'goose']]
+
+maxLen = 0
+for i in range(len(tableData)):
+    for t in range(len(tableData[i])):
+        if len(tableData[i][t]) > maxLen:
+            maxLen = len(tableData[i][t])
+
+print("This is my organized table!")
+maxLen = maxLen + 2
+for i in range(len(tableData)):
+    formattedString = ''
+    for t in range(len(tableData[i])):
+        formattedString = formattedString + tableData[i][t].ljust(maxLen)
+    print(formattedString)
+    
+    
 """
 
 
