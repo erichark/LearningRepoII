@@ -123,3 +123,4 @@ while running:
 
 # TODO create and use objects
 # TODO multiple players in a party, multiple enemies in a group
+# TODO change input requests to pyInputPlus (as pyip) https://pyinputplus.readthedocs.io/
