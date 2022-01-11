@@ -78,7 +78,7 @@ def get_word_score(word, n):
 
 	The score for a word is the product of two components:
 
-	The first component is the sum of the points for letters in the word.
+	The first component is the sum of the points for letters in the word from SCRABBLE_LETTER_VALUES
 	The second component is the larger of:
             1, or
             7*wordlen - 3*(n-wordlen), where wordlen is the length of the word
@@ -90,10 +90,18 @@ def get_word_score(word, n):
     word: string
     n: int >= 0
     returns: int >= 0
-    """
-    
-    pass  # TO DO... Remove this line when you implement this function
 
+
+    """
+    word_score = 0
+    word = word.lower()
+
+    for i in range(len(word)):
+        word_score = word_score + SCRABBLE_LETTER_VALUES.get(word[i])
+    if (7 * len(word) - (3 * (n - len(word)))) >= 1:
+        return word_score * (7 * len(word) - 3 * (n - len(word)))
+    else:
+        return word_score * 1
 #
 # Make sure you understand how this function works and what it does!
 #
@@ -156,7 +164,7 @@ def update_hand(hand, word):
     appear in hand should be ignored. Letters that appear in word more times
     than in hand should never result in a negative count; instead, set the
     count in the returned hand to 0 (or remove the letter from the
-    dictionary, depending on how your code is structured). 
+    dictionary, depending on how your code is structured).
 
     Updates the hand: uses up the letters in the given word
     and returns the new hand, without those letters in it.
@@ -164,11 +172,20 @@ def update_hand(hand, word):
     Has no side effects: does not modify hand.
 
     word: string
-    hand: dictionary (string -> int)    
+    hand: dictionary (string -> int)
     returns: dictionary (string -> int)
     """
 
-    pass  # TO DO... Remove this line when you implement this function
+    new_hand = hand.copy()
+    word= word.lower()
+    for letter in word:
+        if hand.get(letter, 0) > 0:
+            new_hand[letter] = new_hand[letter] - 1
+    for i in list(new_hand.keys()):
+        if new_hand[i] == 0:
+            del new_hand[i]
+
+    return new_hand
 
 #
 # Problem #3: Test word validity
@@ -178,15 +195,22 @@ def is_valid_word(word, hand, word_list):
     Returns True if word is in the word_list and is entirely
     composed of letters in the hand. Otherwise, returns False.
     Does not mutate hand or word_list.
-   
+
     word: string
     hand: dictionary (string -> int)
     word_list: list of lowercase strings
     returns: boolean
     """
 
-    pass  # TO DO... Remove this line when you implement this function
-
+    word = word.lower()
+    if word not in word_list:
+        return False
+    else:
+        word_freq = get_frequency_dict(word)
+        for letter in word:
+            if word_freq.get(letter) > hand.get(letter, 0):
+                return False
+    return True
 #
 # Problem #5: Playing a hand
 #
