@@ -11,12 +11,12 @@ import math
 import random
 import string
 
-VOWELS = 'aeiou'
+VOWELS = 'aeiou*'
 CONSONANTS = 'bcdfghjklmnpqrstvwxyz'
 HAND_SIZE = 7
 
 SCRABBLE_LETTER_VALUES = {
-    'a': 1, 'b': 3, 'c': 3, 'd': 2, 'e': 1, 'f': 4, 'g': 2, 'h': 4, 'i': 1, 'j': 8, 'k': 5, 'l': 1, 'm': 3, 'n': 1, 'o': 1, 'p': 3, 'q': 10, 'r': 1, 's': 1, 't': 1, 'u': 1, 'v': 4, 'w': 4, 'x': 8, 'y': 4, 'z': 10
+    "*: 0, "'a': 1, 'b': 3, 'c': 3, 'd': 2, 'e': 1, 'f': 4, 'g': 2, 'h': 4, 'i': 1, 'j': 8, 'k': 5, 'l': 1, 'm': 3, 'n': 1, 'o': 1, 'p': 3, 'q': 10, 'r': 1, 's': 1, 't': 1, 'u': 1, 'v': 4, 'w': 4, 'x': 8, 'y': 4, 'z': 10
 }
 
 # -----------------------------------
@@ -141,7 +141,7 @@ def deal_hand(n):
     returns: dictionary (string -> int)
     """
     
-    hand={}
+    hand={"*": 1}
     num_vowels = int(math.ceil(n / 3))
 
     for i in range(num_vowels):
@@ -203,13 +203,21 @@ def is_valid_word(word, hand, word_list):
     """
 
     word = word.lower()
-    if word not in word_list:
-        return False
+    if "*" in word:
+        wildcard_permutations = []
+        for i in VOWELS:
+            wildcard_permutations = wildcard_permutations.append(word.replace('*', i))
+        for j in wildcard_permutations:
+            if j in word_list:
+                return True
     else:
-        word_freq = get_frequency_dict(word)
-        for letter in word:
-            if word_freq.get(letter) > hand.get(letter, 0):
-                return False
+        if word not in word_list:
+            return False
+        else:
+            word_freq = get_frequency_dict(word)
+            for letter in word:
+                if word_freq.get(letter) > hand.get(letter, 0):
+                    return False
     return True
 #
 # Problem #5: Playing a hand
