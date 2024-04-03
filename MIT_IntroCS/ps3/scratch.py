@@ -98,8 +98,159 @@ submit each of those to the replacer and add on to the list youre building
                 if word_freq.get(letter) > hand.get(letter, 0):
                     return False
     return True
+def update_hand(hand, word):
+    """
+    Does NOT assume that hand contains every letter in word at least as
+    many times as the letter appears in word. Letters in word that don't
+    appear in hand should be ignored. Letters that appear in word more times
+    than in hand should never result in a negative count; instead, set the
+    count in the returned hand to 0 (or remove the letter from the
+    dictionary, depending on how your code is structured).
+
+    Updates the hand: uses up the letters in the given word
+    and returns the new hand, without those letters in it.
+
+    Has no side effects: does not modify hand.
+
+    word: string
+    hand: dictionary (string -> int)
+    returns: dictionary (string -> int)
+    """
+
+    new_hand = hand.copy()
+    word= word.lower()
+    for letter in word:
+        if hand.get(letter, 0) > 0:
+            new_hand[letter] = new_hand[letter] - 1
+    for i in list(new_hand.keys()):
+        if new_hand[i] == 0:
+            del new_hand[i]
+
+    return new_hand
+
+
+def get_word_score(word, n):
+    """
+    Returns the score for a word. Assumes the word is a
+    valid word.
+
+    You may assume that the input word is always either a string of letters,
+    or the empty string "". You may not assume that the string will only contain
+    lowercase letters, so you will have to handle uppercase and mixed case strings
+    appropriately.
+
+	The score for a word is the product of two components:
+
+	The first component is the sum of the points for letters in the word from SCRABBLE_LETTER_VALUES
+	The second component is the larger of:
+            1, or
+            7*wordlen - 3*(n-wordlen), where wordlen is the length of the word
+            and n is the hand length when the word was played
+
+	Letters are scored as in Scrabble; A is worth 1, B is
+	worth 3, C is worth 3, D is worth 2, E is worth 1, and so on.
+
+    word: string
+    n: int >= 0
+    returns: int >= 0
+
+
+    """
+    word_score = 0
+    word = word.lower()
+
+    for i in range(len(word)):
+        word_score = word_score + SCRABBLE_LETTER_VALUES.get(word[i])
+    if (7 * len(word) - (3 * (n - len(word)))) >= 1:
+        return word_score * (7 * len(word) - 3 * (n - len(word)))
+    else:
+        return word_score * 1
+
+def calculate_handlen(hand):
+    """
+    Returns the length (number of letters) in the current hand.
+
+    hand: dictionary (string-> int)
+    returns: integer
+    """
+
+    counter = 0
+    for key in hand:
+        if hand[key] > 0:
+            counter += 1
+    return counter
+
+
+def display_hand(hand):
+    """
+    Displays the letters currently in the hand.
+
+    For example:
+       display_hand({'a':1, 'x':2, 'l':3, 'e':1})
+    Should print out something like:
+       a x x l l l e
+    The order of the letters is unimportant.
+
+    hand: dictionary (string -> int)
+    """
+
+    for letter in hand.keys():
+        for j in range(hand[letter]):
+            print(letter, end=' ')  # print all on the same line
+    print()  # print an empty line
+
+def play_hand(hand, word_list):
+    """
+    Allows the user to play the given hand, as follows:
+
+    * The hand is displayed.
+
+    * The user may input a word.
+
+    * When any word is entered (valid or invalid), it uses up letters
+      from the hand.
+
+    * An invalid word is rejected, and a message is displayed asking
+      the user to choose another word.
+
+    * After every valid word: the score for that word is displayed,
+      the remaining letters in the hand are displayed, and the user
+      is asked to input another word.
+
+    * The sum of the word scores is displayed when the hand finishes.
+
+    * The hand finishes when there are no more unused letters.
+      The user can also finish playing the hand by inputing two
+      exclamation points (the string '!!') instead of a word.
+
+      hand: dictionary (string -> int)
+      word_list: list of lowercase strings
+      returns: the total score for the hand
+
+    """
+
+    # BEGIN PSEUDOCODE <-- Remove this comment when you implement this function
+    # Keep track of the total score
+    total_score = 0
+    while calculate_handlen(hand) > 0:
+        print("Your current hand:"+ str(display_hand(hand)))
+        word = input('Enter word or "!!" to indicate you are finished:')
+        if word == '!!':
+            print('Total Score:', str(total_score))
+            break
+        elif is_valid_word(word, hand, word_list):
+            score = get_word_score(word, calculate_handlen(hand))
+            total_score = total_score + score  # THIS WILL NEED TO BE UPDATED TO KEEP TRACK OF THE TOTAL SCORE
+            print('"' + word + '"' + ' earned ' + str(score) + ' points. Total: ' + str(total_score))
+        else:
+            print("That is not a valid word. Please choose another word")
+        hand = update_hand(hand, word)
+    print("Total Score:", str(total_score))
+    return total_score
+
 
 
 wordlist = load_words()
-word = "h*ll*"
-print(is_valid_word(word, hand, wordlist))
+
+hand = { 'h': 2, 'e': 2, 'l': 4, 'o':2 }
+play_hand(hand, wordlist)

@@ -16,7 +16,7 @@ CONSONANTS = 'bcdfghjklmnpqrstvwxyz'
 HAND_SIZE = 7
 
 SCRABBLE_LETTER_VALUES = {
-    "*: 0, "'a': 1, 'b': 3, 'c': 3, 'd': 2, 'e': 1, 'f': 4, 'g': 2, 'h': 4, 'i': 1, 'j': 8, 'k': 5, 'l': 1, 'm': 3, 'n': 1, 'o': 1, 'p': 3, 'q': 10, 'r': 1, 's': 1, 't': 1, 'u': 1, 'v': 4, 'w': 4, 'x': 8, 'y': 4, 'z': 10
+    "*": 0, 'a': 1, 'b': 3, 'c': 3, 'd': 2, 'e': 1, 'f': 4, 'g': 2, 'h': 4, 'i': 1, 'j': 8, 'k': 5, 'l': 1, 'm': 3, 'n': 1, 'o': 1, 'p': 3, 'q': 10, 'r': 1, 's': 1, 't': 1, 'u': 1, 'v': 4, 'w': 4, 'x': 8, 'y': 4, 'z': 10
 }
 
 # -----------------------------------
@@ -206,19 +206,21 @@ def is_valid_word(word, hand, word_list):
     if "*" in word:
         wildcard_permutations = []
         for i in VOWELS:
-            wildcard_permutations = wildcard_permutations.append(word.replace('*', i))
+            wildcard_permutations.append(word.replace('*', i))
         for j in wildcard_permutations:
             if j in word_list:
                 return True
+            else:
+                return False
     else:
+        word_freq = get_frequency_dict(word)
         if word not in word_list:
             return False
+        for letter in word:
+            if word_freq.get(letter) > hand.get(letter, 0):
+                return False
         else:
-            word_freq = get_frequency_dict(word)
-            for letter in word:
-                if word_freq.get(letter) > hand.get(letter, 0):
-                    return False
-    return True
+            return True
 #
 # Problem #5: Playing a hand
 #
@@ -230,7 +232,11 @@ def calculate_handlen(hand):
     returns: integer
     """
     
-    pass  # TO DO... Remove this line when you implement this function
+    counter = 0
+    for key in hand:
+        if hand[key] > 0:
+            counter += 1
+    return counter
 
 def play_hand(hand, word_list):
 
@@ -265,7 +271,24 @@ def play_hand(hand, word_list):
     
     # BEGIN PSEUDOCODE <-- Remove this comment when you implement this function
     # Keep track of the total score
-    
+    while calculate_handlen(hand) > 0:
+        total_score = 0
+        print("Your current hand:", display_hand(hand))
+        word = input('Enter word or "!!" to indicate you are finished:')
+        if word == '!!':
+            print('Total Score:', str(total_score))
+            break
+        elif is_valid_word(word, hand, word_list):
+            score = get_word_score(word, calculate_handlen(hand))
+            total_score = total_score + score #THIS WILL NEED TO BE UPDATED TO KEEP TRACK OF THE TOTAL SCORE
+            print('"'+word+'"'+' earned '+str(score)+' points. Total: '+str(total_score))
+        else:
+            print("That is not a valid word. Please choose another word")
+        update_hand(hand, word)
+    print("Total Score:", str(total_score))
+    return total_score
+
+
     # As long as there are still letters left in the hand:
     
         # Display the hand
